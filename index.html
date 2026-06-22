@@ -2,8 +2,15 @@
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>贸易实务检定 C级 练习</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0f172a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="貿易C級">
+<link rel="apple-touch-icon" href="icon-180.png">
 <style>
 :root{
   --bg:#0f172a; --card:#1e293b; --card2:#273449; --line:#334155;
@@ -94,6 +101,24 @@ body.hide-furi rt{display:none;}
 .linkrow{display:flex;gap:6px;justify-content:center;margin-top:8px;}
 .smallbtn{background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;
   padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit;}
+/* iOS 安全区（刘海 / 底部指示条） */
+@supports (padding: env(safe-area-inset-top)) {
+  header .hd{ padding-top: calc(11px + env(safe-area-inset-top)); }
+  .wrap{ padding-left: calc(14px + env(safe-area-inset-left)); padding-right: calc(14px + env(safe-area-inset-right)); }
+  .footbar{ padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+  .footbar .inner{ padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+}
+/* 学习分析 */
+.an-head{display:flex;align-items:center;gap:14px;margin-bottom:6px;}
+.ring{width:64px;height:64px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;position:relative;}
+.ring::after{content:'';position:absolute;inset:8px;border-radius:50%;background:var(--card);}
+.ring span{position:relative;z-index:1;font-weight:800;font-size:14px;}
+.an-sub{font-size:12px;color:var(--sub);margin:14px 0 8px;font-weight:700;letter-spacing:.3px;}
+.an-row{margin-bottom:9px;}
+.an-h{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px;gap:8px;}
+.an-h>span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.an-h .an-n{color:var(--sub);flex:0 0 auto;}
+.an-empty{color:var(--sub);font-size:13px;}
 </style>
 </head>
 <body>
@@ -123,6 +148,8 @@ body.hide-furi rt{display:none;}
       <button class="btn btn-pri" onclick="startContinue()">▶ 继续练习</button>
       <button class="btn btn-sec" onclick="startWrong()">↻ 只练错题 (<span id="wcount">0</span>)</button>
     </div>
+
+    <div class="card" id="analysis"></div>
 
     <div class="sec-title">按主题日练习（循序渐进）</div>
     <div id="dayList"></div>
@@ -218,6 +245,34 @@ function renderHome(){
       <div class="done">${finished?'✓':''}</div>`;
     dl.appendChild(el);
   });
+  renderAnalysis();
+}
+function barColor(a){ return a>=80?'var(--ok)':a>=60?'var(--warn)':'var(--ng)'; }
+function groupStats(key){
+  const m={};
+  QUESTIONS.forEach(q=>{ const k=q[key]; (m[k]=m[k]||{t:0,a:0,c:0}); m[k].t++;
+    const p=progress[q.id]; if(p){ m[k].a++; if(p.correct) m[k].c++; } });
+  return m;
+}
+function groupHTML(title,map){
+  let rows=Object.keys(map).map(k=>{ const v=map[k]; const acc=v.a?Math.round(v.c/v.a*100):-1; return {k,v,acc}; });
+  rows.sort((a,b)=>{ if(a.acc<0&&b.acc<0)return 0; if(a.acc<0)return 1; if(b.acc<0)return -1; return a.acc-b.acc; });
+  let h='<div class="an-sub">'+title+'</div>';
+  rows.forEach(r=>{ const has=r.acc>=0; const w=has?r.acc:0; const col=has?barColor(r.acc):'var(--line)';
+    const right=has?(r.v.c+'/'+r.v.a+' · '+r.acc+'%'):('未练 0/'+r.v.t);
+    h+='<div class="an-row"><div class="an-h"><span>'+r.k+'</span><span class="an-n">'+right+'</span></div>'
+      +'<div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div></div>'; });
+  return h;
+}
+function renderAnalysis(){
+  const el=document.getElementById('analysis'); if(!el) return;
+  const ids=Object.keys(progress); const ans=ids.length;
+  const ok=ids.filter(id=>progress[id].correct).length;
+  const acc=ans?Math.round(ok/ans*100):0;
+  const head='<div class="an-head"><div class="ring" style="background:conic-gradient(var(--pri) '+acc+'%, var(--line) 0)"><span>'+(ans?acc+'%':'—')+'</span></div>'
+    +'<div><div style="font-weight:700;">学习分析</div><div class="muted">总正确率 '+(ans?(acc+'%（'+ok+'/'+ans+'）'):'暂无作答')+'</div></div></div>';
+  if(!ans){ el.innerHTML=head+'<div class="an-empty">先做几题，这里会按主题和题型显示正确率，弱项自动排在前面。</div>'; return; }
+  el.innerHTML=head+groupHTML('按主题（弱项在前）',groupStats('topic'))+groupHTML('按题型',groupStats('type'));
 }
 
 /* ---------- START MODES ---------- */
@@ -324,6 +379,8 @@ function applyFuri(){
 function resetAll(){
   if(confirm('确定清除全部答题进度吗？此操作不可恢复。')){ progress={}; save(PKEY,progress); renderHome(); }
 }
+/* service worker（离线/可安装，仅在 https 的 Pages 网址生效） */
+if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 /* init */
 applyFuri(); renderHome(); show('home');
 </script>
