@@ -179,7 +179,7 @@ let settings = load(SKEY,{furi:true});
 let session=null;                  // {list:[q...], i:0, ok:0, ng:0, answered:false}
 
 function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 function days(){return [...new Set(QUESTIONS.map(q=>q.day))].sort((a,b)=>a-b);}
 function byDay(d){return QUESTIONS.filter(q=>q.day===d);}
 function topicOfDay(d){return [...new Set(byDay(d).map(q=>q.topic))].join(' · ');}
