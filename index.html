@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>贸易实务检定 C级 练习</title>
+<style>
+:root{
+  --bg:#0f172a; --card:#1e293b; --card2:#273449; --line:#334155;
+  --txt:#e2e8f0; --sub:#94a3b8; --pri:#38bdf8; --pri2:#0ea5e9;
+  --ok:#22c55e; --okbg:#14331f; --ng:#ef4444; --ngbg:#3a1717;
+  --warn:#f59e0b; --chip:#334155;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
+  font-family:"Hiragino Sans","Yu Gothic","Noto Sans CJK SC","PingFang SC",system-ui,sans-serif;
+  font-size:16px;line-height:1.65;}
+.wrap{max-width:680px;margin:0 auto;padding:14px 14px 110px;}
+header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.hd{max-width:680px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.hd h1{font-size:16px;margin:0;font-weight:700;letter-spacing:.5px;}
+.hd h1 small{color:var(--sub);font-weight:400;font-size:12px;display:block;}
+.toggle{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);}
+.switch{width:42px;height:24px;border-radius:14px;background:var(--line);position:relative;transition:.2s;cursor:pointer;flex:0 0 auto;}
+.switch.on{background:var(--pri2);}
+.switch i{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;}
+.switch.on i{left:20px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px;}
+.stat-row{display:flex;gap:10px;text-align:center;}
+.stat{flex:1;background:var(--card2);border-radius:12px;padding:10px 4px;}
+.stat b{display:block;font-size:22px;line-height:1.2;}
+.stat span{font-size:11px;color:var(--sub);}
+.stat.ok b{color:var(--ok);} .stat.ng b{color:var(--ng);} .stat.pri b{color:var(--pri);}
+.bar{height:9px;border-radius:6px;background:var(--line);overflow:hidden;margin-top:6px;}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pri2),var(--pri));}
+.btn{display:block;width:100%;border:none;border-radius:13px;padding:14px;font-size:15px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:.15s;}
+.btn:active{transform:scale(.985);}
+.btn-pri{background:linear-gradient(90deg,var(--pri2),var(--pri));color:#04222e;}
+.btn-sec{background:var(--card2);color:var(--txt);border:1px solid var(--line);}
+.btn-row{display:flex;gap:10px;}
+.btn-row .btn{margin:0;}
+.muted{color:var(--sub);font-size:13px;}
+.sec-title{font-size:13px;color:var(--sub);margin:18px 4px 8px;font-weight:700;letter-spacing:.5px;}
+.day{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:13px 14px;margin-bottom:10px;cursor:pointer;transition:.15s;}
+.day:active{background:var(--card2);}
+.day .n{flex:0 0 44px;height:44px;border-radius:12px;background:var(--card2);display:flex;align-items:center;
+  justify-content:center;font-weight:800;font-size:13px;color:var(--pri);flex-direction:column;line-height:1.1;}
+.day .n small{font-size:9px;color:var(--sub);font-weight:600;}
+.day .info{flex:1;min-width:0;}
+.day .info .t{font-weight:700;font-size:14px;}
+.day .info .s{font-size:11px;color:var(--sub);margin-top:2px;}
+.day .done{color:var(--ok);font-size:20px;flex:0 0 auto;}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.chip{font-size:11px;background:var(--chip);color:var(--sub);padding:3px 9px;border-radius:20px;font-weight:600;}
+.chip.topic{background:#1d3a52;color:#7dd3fc;}
+.chip.type{background:#3a2f1d;color:#fcd34d;}
+.qnum{font-size:12px;color:var(--sub);margin-bottom:8px;display:flex;justify-content:space-between;}
+.q-ja{font-size:18px;font-weight:600;line-height:1.9;}
+.q-zh{color:var(--sub);font-size:13.5px;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
+rt{font-size:.58em;color:var(--pri);font-weight:500;}
+body.hide-furi rt{display:none;}
+.opts{margin-top:14px;display:flex;flex-direction:column;gap:10px;}
+.opt{text-align:left;background:var(--card2);border:1.5px solid var(--line);border-radius:13px;padding:12px 13px;
+  cursor:pointer;font-family:inherit;color:var(--txt);transition:.12s;}
+.opt:active{border-color:var(--pri);}
+.opt .ja{font-size:15.5px;font-weight:600;line-height:1.75;}
+.opt .zh{font-size:12px;color:var(--sub);margin-top:3px;}
+.opt.correct{border-color:var(--ok);background:var(--okbg);}
+.opt.wrong{border-color:var(--ng);background:var(--ngbg);}
+.opt.dim{opacity:.6;}
+.opt .mk{float:right;font-weight:800;margin-left:8px;}
+.opt.correct .mk{color:var(--ok);} .opt.wrong .mk{color:var(--ng);}
+.fb{margin-top:14px;border-radius:13px;padding:13px;border:1px solid var(--line);background:var(--card2);}
+.fb .banner{font-weight:800;font-size:16px;margin-bottom:8px;}
+.fb.ok .banner{color:var(--ok);} .fb.ng .banner{color:var(--ng);}
+.exp{font-size:13.5px;margin:7px 0;padding-left:22px;position:relative;line-height:1.6;}
+.exp .ic{position:absolute;left:0;top:0;font-weight:800;}
+.exp.eok .ic{color:var(--ok);} .exp.eng .ic{color:var(--ng);}
+.exp.mine{background:rgba(56,189,248,.08);border-radius:7px;padding:6px 8px 6px 24px;}
+.exp.mine .ic{left:6px;top:6px;}
+.note{margin-top:10px;font-size:12.5px;color:var(--warn);background:rgba(245,158,11,.1);
+  border-radius:9px;padding:9px 11px;border:1px solid rgba(245,158,11,.25);}
+.note b{color:var(--warn);}
+.footbar{position:fixed;left:0;right:0;bottom:0;background:rgba(15,23,42,.95);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);padding:12px 14px;z-index:30;}
+.footbar .inner{max-width:680px;margin:0 auto;}
+.hidden{display:none!important;}
+.back{background:none;border:none;color:var(--pri);font-size:14px;cursor:pointer;font-family:inherit;padding:4px 0;}
+.empty{text-align:center;color:var(--sub);padding:40px 10px;}
+.tip{font-size:12px;color:var(--sub);text-align:center;margin-top:6px;}
+.linkrow{display:flex;gap:6px;justify-content:center;margin-top:8px;}
+.smallbtn{background:none;border:1px solid var(--line);color:var(--sub);border-radius:8px;
+  padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit;}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <h1>贸易实务检定 C级 练习<small id="hdsub">第116回 · 2026/12/6</small></h1>
+  <div class="toggle">假名
+    <div class="switch on" id="furiSwitch" onclick="toggleFuri()"><i></i></div>
+  </div>
+</div></header>
+
+<div class="wrap">
+  <!-- HOME -->
+  <div id="home">
+    <div class="card">
+      <div style="font-weight:700;margin-bottom:10px;">总进度</div>
+      <div class="stat-row">
+        <div class="stat pri"><b id="s-ans">0</b><span>已答 / 总数</span></div>
+        <div class="stat ok"><b id="s-ok">0</b><span>答对</span></div>
+        <div class="stat ng"><b id="s-ng">0</b><span>答错</span></div>
+        <div class="stat"><b id="s-acc">—</b><span>正确率</span></div>
+      </div>
+      <div class="bar" style="margin-top:12px;"><i id="s-bar" style="width:0%"></i></div>
+      <div class="tip" id="s-tip"></div>
+    </div>
+
+    <div class="btn-row" style="margin-bottom:10px;">
+      <button class="btn btn-pri" onclick="startContinue()">▶ 继续练习</button>
+      <button class="btn btn-sec" onclick="startWrong()">↻ 只练错题 (<span id="wcount">0</span>)</button>
+    </div>
+
+    <div class="sec-title">按主题日练习（循序渐进）</div>
+    <div id="dayList"></div>
+
+    <div class="linkrow">
+      <button class="smallbtn" onclick="resetAll()">重置全部进度</button>
+    </div>
+    <div class="tip">进度保存在本机浏览器（localStorage），换设备/清缓存会清空。</div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz" class="hidden">
+    <button class="back" onclick="goHome()">‹ 返回</button>
+    <div class="qnum"><span id="q-pos"></span><span id="q-mode"></span></div>
+    <div class="card">
+      <div class="chips">
+        <span class="chip topic" id="q-topic"></span>
+        <span class="chip type" id="q-type"></span>
+      </div>
+      <div class="q-ja" id="q-ja"></div>
+      <div class="q-zh" id="q-zh"></div>
+      <div class="opts" id="q-opts"></div>
+      <div id="q-fb"></div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" class="hidden">
+    <div class="card" style="text-align:center;">
+      <div style="font-size:40px;" id="r-emoji">🎉</div>
+      <div style="font-weight:800;font-size:18px;margin:6px 0;">本次练习完成</div>
+      <div class="stat-row" style="margin-top:14px;">
+        <div class="stat pri"><b id="r-total">0</b><span>本次题数</span></div>
+        <div class="stat ok"><b id="r-ok">0</b><span>答对</span></div>
+        <div class="stat ng"><b id="r-ng">0</b><span>答错</span></div>
+        <div class="stat"><b id="r-acc">0%</b><span>正确率</span></div>
+      </div>
+    </div>
+    <button class="btn btn-pri" style="margin-bottom:10px;" onclick="goHome()">返回首页</button>
+    <button class="btn btn-sec" id="r-wrong" onclick="startWrong()">只重做错题</button>
+  </div>
+</div>
+
+<!-- FOOTER (quiz only) -->
+<div class="footbar hidden" id="foot"><div class="inner">
+  <button class="btn btn-pri" id="nextBtn" onclick="nextQ()" disabled>请选择答案</button>
+</div></div>
+
+<script src="questions.js"></script>
+<script>
+const PKEY='bjt_progress_v1', SKEY='bjt_settings_v1';
+let progress = load(PKEY,{});      // {id:{correct:bool,chosen:int}}
+let settings = load(SKEY,{furi:true});
+let session=null;                  // {list:[q...], i:0, ok:0, ng:0, answered:false}
+
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d;}catch(e){return d;}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function days(){return [...new Set(QUESTIONS.map(q=>q.day))].sort((a,b)=>a-b);}
+function byDay(d){return QUESTIONS.filter(q=>q.day===d);}
+function topicOfDay(d){return [...new Set(byDay(d).map(q=>q.topic))].join(' · ');}
+
+/* ---------- HOME ---------- */
+function renderHome(){
+  const total=QUESTIONS.length;
+  const ansIds=Object.keys(progress);
+  const ans=ansIds.length;
+  const ok=ansIds.filter(id=>progress[id].correct).length;
+  const ng=ans-ok;
+  document.getElementById('s-ans').textContent=ans+'/'+total;
+  document.getElementById('s-ok').textContent=ok;
+  document.getElementById('s-ng').textContent=ng;
+  document.getElementById('s-acc').textContent= ans? Math.round(ok/ans*100)+'%':'—';
+  document.getElementById('s-bar').style.width=(total?ans/total*100:0)+'%';
+  document.getElementById('wcount').textContent=ng;
+  document.getElementById('r-wrong')&&0;
+  const remain=total-ans;
+  document.getElementById('s-tip').textContent= remain>0
+     ? `还剩 ${remain} 题未做，目标合格率 80%` : '全部题目已完成一遍，继续巩固错题吧！';
+  // day list
+  const dl=document.getElementById('dayList'); dl.innerHTML='';
+  days().forEach(d=>{
+    const qs=byDay(d);
+    const a=qs.filter(q=>progress[q.id]).length;
+    const c=qs.filter(q=>progress[q.id]&&progress[q.id].correct).length;
+    const finished=a===qs.length;
+    const el=document.createElement('div');
+    el.className='day'; el.onclick=()=>startDay(d);
+    el.innerHTML=`<div class="n">DAY<small>${d}</small></div>
+      <div class="info"><div class="t">${topicOfDay(d)}</div>
+        <div class="s">${a}/${qs.length} 题已答 · 对 ${c}</div>
+        <div class="bar" style="margin-top:6px;"><i style="width:${a/qs.length*100}%"></i></div>
+      </div>
+      <div class="done">${finished?'✓':''}</div>`;
+    dl.appendChild(el);
+  });
+}
+
+/* ---------- START MODES ---------- */
+function startDay(d){ begin(byDay(d), `DAY ${d}`); }
+function startContinue(){
+  let list=QUESTIONS.filter(q=>!progress[q.id]);
+  if(!list.length){ list=QUESTIONS.slice(); }   // all done → review全部
+  begin(list, list.length===QUESTIONS.length?'复习全部':'继续未做');
+}
+function startWrong(){
+  const list=QUESTIONS.filter(q=>progress[q.id]&&!progress[q.id].correct);
+  if(!list.length){ alert('暂无错题，太棒了！'); goHome(); return; }
+  begin(list,'错题重做');
+}
+function begin(list,modeLabel){
+  if(!list.length){ goHome(); return; }
+  session={list, i:0, ok:0, ng:0, answered:false, mode:modeLabel};
+  show('quiz'); document.getElementById('foot').classList.remove('hidden');
+  renderQ();
+}
+
+/* ---------- QUIZ ---------- */
+function renderQ(){
+  const s=session, q=s.list[s.i]; s.answered=false;
+  document.getElementById('q-pos').textContent=`第 ${s.i+1} / ${s.list.length} 题`;
+  document.getElementById('q-mode').textContent=s.mode;
+  document.getElementById('q-topic').textContent=q.topic;
+  document.getElementById('q-type').textContent=q.type;
+  document.getElementById('q-ja').innerHTML=q.q;
+  document.getElementById('q-zh').textContent=q.qzh;
+  const ow=document.getElementById('q-opts'); ow.innerHTML='';
+  q.opts.forEach((o,idx)=>{
+    const b=document.createElement('button');
+    b.className='opt'; b.onclick=()=>choose(idx);
+    b.innerHTML=`<div class="ja">${String.fromCharCode(65+idx)}. ${o.t}</div><div class="zh">${o.zh}</div>`;
+    ow.appendChild(b);
+  });
+  document.getElementById('q-fb').innerHTML='';
+  const nb=document.getElementById('nextBtn');
+  nb.disabled=true; nb.textContent='请选择答案';
+  window.scrollTo(0,0);
+}
+function choose(idx){
+  const s=session; if(s.answered) return; s.answered=true;
+  const q=s.list[s.i]; const correct=(idx===q.ans);
+  // record (overwrite previous)
+  const prev=progress[q.id];
+  progress[q.id]={correct, chosen:idx}; save(PKEY,progress);
+  if(correct)s.ok++; else s.ng++;
+  // paint options
+  const btns=document.querySelectorAll('#q-opts .opt');
+  btns.forEach((b,i)=>{
+    b.onclick=null;
+    if(i===q.ans){b.classList.add('correct'); b.querySelector('.ja').innerHTML+=' <span class="mk">✓</span>';}
+    else if(i===idx){b.classList.add('wrong'); b.querySelector('.ja').innerHTML+=' <span class="mk">✗</span>';}
+    else b.classList.add('dim');
+  });
+  // feedback
+  const fb=document.getElementById('q-fb');
+  let html=`<div class="fb ${correct?'ok':'ng'}"><div class="banner">${correct?'✓ 正解！':'✗ 不正解'}</div>`;
+  if(!correct){
+    html+=`<div class="exp mine eng"><span class="ic">✗</span>你选了 ${String.fromCharCode(65+idx)}：${q.optExp[idx]}</div>`;
+  }
+  q.optExp.forEach((e,i)=>{
+    if(!correct && i===idx) return; // already shown above
+    const isAns=(i===q.ans);
+    const mineCorrect=(correct&&i===idx);
+    html+=`<div class="exp ${isAns?'eok':'eng'} ${mineCorrect?'mine':''}">
+      <span class="ic">${isAns?'✓':'✗'}</span>${String.fromCharCode(65+i)}：${e}</div>`;
+  });
+  if(q.note) html+=`<div class="note"><b>📌 知识点：</b>${q.note}</div>`;
+  html+='</div>';
+  fb.innerHTML=html;
+  const nb=document.getElementById('nextBtn');
+  nb.disabled=false;
+  nb.textContent = s.i+1<s.list.length ? '下一题 ›' : '完成本次练习';
+}
+function nextQ(){
+  const s=session; if(!s.answered) return;
+  if(s.i+1<s.list.length){ s.i++; renderQ(); }
+  else finishSession();
+}
+function finishSession(){
+  const s=session;
+  document.getElementById('foot').classList.add('hidden');
+  document.getElementById('r-total').textContent=s.list.length;
+  document.getElementById('r-ok').textContent=s.ok;
+  document.getElementById('r-ng').textContent=s.ng;
+  const acc=Math.round(s.ok/s.list.length*100);
+  document.getElementById('r-acc').textContent=acc+'%';
+  document.getElementById('r-emoji').textContent= acc>=80?'🎉': acc>=60?'💪':'📚';
+  document.getElementById('r-wrong').classList.toggle('hidden', s.ng===0);
+  show('result');
+}
+
+/* ---------- NAV / SETTINGS ---------- */
+function goHome(){ session=null; document.getElementById('foot').classList.add('hidden'); renderHome(); show('home'); }
+function show(id){ ['home','quiz','result'].forEach(x=>document.getElementById(x).classList.toggle('hidden',x!==id)); }
+function toggleFuri(){ settings.furi=!settings.furi; save(SKEY,settings); applyFuri(); }
+function applyFuri(){
+  document.body.classList.toggle('hide-furi',!settings.furi);
+  document.getElementById('furiSwitch').classList.toggle('on',settings.furi);
+}
+function resetAll(){
+  if(confirm('确定清除全部答题进度吗？此操作不可恢复。')){ progress={}; save(PKEY,progress); renderHome(); }
+}
+/* init */
+applyFuri(); renderHome(); show('home');
+</script>
+</body>
+</html>
