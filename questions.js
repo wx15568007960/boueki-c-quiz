@@ -658,6 +658,396 @@ const QUESTIONS = [
     "错误。火灾保险是fire insurance。",
     "错误。人寿保险是life insurance。"
   ]
+},
+
+/* ============ Day 7：实务强化①（条件·信用状·为替） ============ */
+{
+  id:"d7q1", day:7, topic:"インコタームズ2020", type:"3択",
+  q:`<ruby>航空便<rt>こうくうびん</rt></ruby>で<ruby>貨物<rt>かもつ</rt></ruby>を<ruby>輸出<rt>ゆしゅつ</rt></ruby>する<ruby>場合<rt>ばあい</rt></ruby>に<ruby>使<rt>つか</rt></ruby>うのが<ruby>適切<rt>てきせつ</rt></ruby>なインコタームズの<ruby>組<rt>く</rt></ruby>み<ruby>合<rt>あ</rt></ruby>わせはどれか。`,
+  qzh:"用航空运输出口货物时，适合使用的Incoterms组合是哪一项？",
+  opts:[
+    {t:`FCA・CPT・CIP（<ruby>任意<rt>にんい</rt></ruby>の<ruby>輸送<rt>ゆそう</rt></ruby><ruby>手段<rt>しゅだん</rt></ruby>に<ruby>使<rt>つか</rt></ruby>える）`, zh:"FCA・CPT・CIP（适用任何运输方式）"},
+    {t:`FOB・CFR・CIF（<ruby>海上<rt>かいじょう</rt></ruby><ruby>専用<rt>せんよう</rt></ruby>）`, zh:"FOB・CFR・CIF（海运专用）"},
+    {t:`DDP のみ`, zh:"只有DDP"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。航空运输应选“适用任何运输方式”的条件：FCA / CPT / CIP 等。",
+    "错误。FOB・CFR・CIF 是海运/内陆水运专用，不适合航空。",
+    "错误。DDP 也能用于航空，但说“只有DDP”不对，FCA组才是典型选择。"
+  ],
+  note:"海运专用4条件：FAS・FOB・CFR・CIF；其余适用任何运输方式。"
+},
+{
+  id:"d7q2", day:7, topic:"インコタームズ2020", type:"2択",
+  q:`FOB<ruby>契約<rt>けいやく</rt></ruby>で、<ruby>売主<rt>うりぬし</rt></ruby>は<ruby>貨物<rt>かもつ</rt></ruby>を<ruby>本船<rt>ほんせん</rt></ruby>に<ruby>積<rt>つ</rt></ruby>み<ruby>込<rt>こ</rt></ruby>むまでの<ruby>費用<rt>ひよう</rt></ruby>と<ruby>危険<rt>きけん</rt></ruby>を<ruby>負担<rt>ふたん</rt></ruby>する。`,
+  qzh:"FOB合同下，卖方负担把货物装上船为止的费用和风险。对吗？",
+  opts:[ {t:`<ruby>正<rt>ただ</rt></ruby>しい（○）`, zh:"正确（○）"}, {t:`<ruby>誤<rt>あやま</rt></ruby>り（×）`, zh:"错误（×）"} ],
+  ans:0,
+  optExp:[
+    "正确。FOB下卖方负担到“货装上船”为止的费用与风险，之后归买方。",
+    "错误。装船为界，正是FOB的分界点，说法成立。"
+  ]
+},
+{
+  id:"d7q3", day:7, topic:"インコタームズ2020", type:"3択",
+  q:`CFR（<ruby>運賃<rt>うんちん</rt></ruby><ruby>込<rt>こ</rt></ruby>み）<ruby>契約<rt>けいやく</rt></ruby>で、<ruby>海上<rt>かいじょう</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>を<ruby>手配<rt>てはい</rt></ruby>する<ruby>義務<rt>ぎむ</rt></ruby>があるのは<ruby>誰<rt>だれ</rt></ruby>か。`,
+  qzh:"CFR（成本加运费）合同下，有义务安排海上保险的是谁？",
+  opts:[
+    {t:`<ruby>買主<rt>かいぬし</rt></ruby>（<ruby>自<rt>みずか</rt></ruby>ら<ruby>付保<rt>ふほ</rt></ruby>する）`, zh:"买方（自己投保）"},
+    {t:`<ruby>売主<rt>うりぬし</rt></ruby>`, zh:"卖方"},
+    {t:`<ruby>船会社<rt>ふながいしゃ</rt></ruby>`, zh:"船公司"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。CFR不含保险，风险又在装船时转给买方，所以买方需自己投保。",
+    "错误。卖方付保的是CIF（CFR＋保险）。",
+    "错误。船公司只承运，不负责买方的货物保险。"
+  ],
+  note:"CFR + 海上保险 = CIF。"
+},
+{
+  id:"d7q4", day:7, topic:"信用状·贸易金融", type:"3択",
+  q:`<ruby>信用状<rt>しんようじょう</rt></ruby><ruby>取引<rt>とりひき</rt></ruby>でいう「ディスクレ（discrepancy）」とは<ruby>何<rt>なに</rt></ruby>か。`,
+  qzh:"信用证交易中所说的“discrepancy（不符点）”是指什么？",
+  opts:[
+    {t:`<ruby>船積<rt>ふなづみ</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>が<ruby>信用状<rt>しんようじょう</rt></ruby>の<ruby>条件<rt>じょうけん</rt></ruby>と<ruby>一致<rt>いっち</rt></ruby>しないこと`, zh:"装船单据与信用证条件不一致"},
+    {t:`<ruby>為替<rt>かわせ</rt></ruby><ruby>相場<rt>そうば</rt></ruby>が<ruby>急変<rt>きゅうへん</rt></ruby>すること`, zh:"汇率剧烈波动"},
+    {t:`<ruby>関税<rt>かんぜい</rt></ruby>を<ruby>滞納<rt>たいのう</rt></ruby>すること`, zh:"拖欠关税"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。discrepancy＝单据与L/C条件不符；有不符点银行可拒付。",
+    "错误。汇率波动与单据相符与否无关。",
+    "错误。关税滞纳与信用证单据审核无关。"
+  ]
+},
+{
+  id:"d7q5", day:7, topic:"信用状·贸易金融", type:"3択",
+  q:`<ruby>輸出者<rt>ゆしゅつしゃ</rt></ruby>に<ruby>信用状<rt>しんようじょう</rt></ruby>を<ruby>通知<rt>つうち</rt></ruby>し<ruby>書類<rt>しょるい</rt></ruby>を<ruby>取<rt>と</rt></ruby>り<ruby>次<rt>つ</rt></ruby>ぐが、<ruby>自<rt>みずか</rt></ruby>らは<ruby>支払<rt>しはらい</rt></ruby>を<ruby>確約<rt>かくやく</rt></ruby>しない<ruby>銀行<rt>ぎんこう</rt></ruby>はどれか。`,
+  qzh:"向出口商通知信用证、转递单据，但自己不作付款确约的银行是哪一个？",
+  opts:[
+    {t:`<ruby>通知<rt>つうち</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>`, zh:"通知银行"},
+    {t:`<ruby>発行<rt>はっこう</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>`, zh:"开证银行"},
+    {t:`<ruby>確認<rt>かくにん</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>`, zh:"保兑银行"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。通知银行只负责通知与转递，不承担付款责任。",
+    "错误。开证银行作出最终付款确约。",
+    "错误。保兑银行另外再加一层付款确约。"
+  ]
+},
+{
+  id:"d7q6", day:7, topic:"信用状·贸易金融", type:"3択",
+  q:`<ruby>呈示<rt>ていじ</rt></ruby>されたら<ruby>直<rt>ただ</rt></ruby>ちに<ruby>支払<rt>しはら</rt></ruby>われる「<ruby>一覧払<rt>いちらんばら</rt></ruby>い」の<ruby>手形<rt>てがた</rt></ruby>を<ruby>何<rt>なに</rt></ruby>というか。`,
+  qzh:"一经提示即刻付款的“即期”汇票叫什么？",
+  opts:[
+    {t:`<ruby>一覧払<rt>いちらんばら</rt></ruby>い<ruby>手形<rt>てがた</rt></ruby>（at sight）`, zh:"即期汇票（at sight）"},
+    {t:`<ruby>期限付<rt>きげんつき</rt></ruby><ruby>手形<rt>てがた</rt></ruby>（usance）`, zh:"远期汇票（usance）"},
+    {t:`<ruby>自己<rt>じこ</rt></ruby><ruby>宛<rt>あて</rt></ruby><ruby>手形<rt>てがた</rt></ruby>`, zh:"自己为付款人的汇票"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。一覧払い（at sight）＝见票即付。",
+    "错误。期限付（usance）手形是远期、有付款宽限。",
+    "错误。自己宛手形指出票人自己为付款人，与付款期限无关。"
+  ]
+},
+{
+  id:"d7q7", day:7, topic:"外国为替", type:"3択",
+  q:`<ruby>輸入者<rt>ゆにゅうしゃ</rt></ruby>が<ruby>将来<rt>しょうらい</rt></ruby>の<ruby>支払<rt>しはらい</rt></ruby>に<ruby>備<rt>そな</rt></ruby>え、あらかじめ<ruby>為替<rt>かわせ</rt></ruby><ruby>予約<rt>よやく</rt></ruby>をする<ruby>主<rt>おも</rt></ruby>な<ruby>目的<rt>もくてき</rt></ruby>はどれか。`,
+  qzh:"进口商为将来付款而预先做远期外汇预约，主要目的是哪一项？",
+  opts:[
+    {t:`<ruby>円安<rt>えんやす</rt></ruby><ruby>方向<rt>ほうこう</rt></ruby>の<ruby>為替<rt>かわせ</rt></ruby><ruby>変動<rt>へんどう</rt></ruby>リスクを<ruby>避<rt>さ</rt></ruby>け、コストを<ruby>確定<rt>かくてい</rt></ruby>するため`, zh:"规避日元贬值方向的汇率风险、锁定成本"},
+    {t:`<ruby>関税<rt>かんぜい</rt></ruby>を<ruby>減<rt>へ</rt></ruby>らすため`, zh:"为了减少关税"},
+    {t:`<ruby>通関<rt>つうかん</rt></ruby>を<ruby>早<rt>はや</rt></ruby>めるため`, zh:"为了加快通关"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。远期预约锁定未来汇率，规避（进口商怕的）日元贬值风险、确定成本。",
+    "错误。汇率预约与关税多少无关。",
+    "错误。汇率预约与通关速度无关。"
+  ]
+},
+{
+  id:"d7q8", day:7, topic:"外国为替", type:"3択",
+  q:`<ruby>銀行<rt>ぎんこう</rt></ruby>が<ruby>顧客<rt>こきゃく</rt></ruby>から<ruby>外貨<rt>がいか</rt></ruby>を<ruby>買<rt>か</rt></ruby>い<ruby>取<rt>と</rt></ruby>る（<ruby>輸出者<rt>ゆしゅつしゃ</rt></ruby>が<ruby>受<rt>う</rt></ruby>け<ruby>取<rt>と</rt></ruby>った<ruby>外貨<rt>がいか</rt></ruby>を<ruby>円<rt>えん</rt></ruby>に<ruby>換<rt>か</rt></ruby>える）ときに<ruby>適用<rt>てきよう</rt></ruby>される<ruby>相場<rt>そうば</rt></ruby>はどれか。`,
+  qzh:"银行从客户处买入外汇（出口商把收到的外汇换成日元）时适用的汇率是哪一个？",
+  opts:[
+    {t:`TTB（<ruby>電信<rt>でんしん</rt></ruby><ruby>買<rt>かい</rt></ruby><ruby>相場<rt>そうば</rt></ruby>）`, zh:"TTB（电汇买入汇率）"},
+    {t:`TTS（<ruby>電信<rt>でんしん</rt></ruby><ruby>売<rt>うり</rt></ruby><ruby>相場<rt>そうば</rt></ruby>）`, zh:"TTS（电汇卖出汇率）"},
+    {t:`<ruby>仲値<rt>なかね</rt></ruby>（TTM）`, zh:"中间价（TTM）"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。以银行为主语“买入”外汇用TTB。",
+    "错误。TTS是银行卖出外汇时用（客户买外汇）。",
+    "错误。TTM是中间基准价，不直接用于成交。"
+  ],
+  note:"以银行为主语：Buying=TTB，Selling=TTS。"
+},
+
+/* ============ Day 8：实务强化②（通关·关税·保险·运送·经济） ============ */
+{
+  id:"d8q1", day:8, topic:"通关·关税", type:"3択",
+  q:`<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>貨物<rt>かもつ</rt></ruby>は<ruby>原則<rt>げんそく</rt></ruby>として、どの<ruby>状態<rt>じょうたい</rt></ruby>になってから<ruby>本船<rt>ほんせん</rt></ruby>に<ruby>積<rt>つ</rt></ruby>み<ruby>込<rt>こ</rt></ruby>むか。`,
+  qzh:"出口货物原则上要在什么状态之后才装船？",
+  opts:[
+    {t:`<ruby>税関<rt>ぜいかん</rt></ruby>に<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>申告<rt>しんこく</rt></ruby>し、<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>許可<rt>きょか</rt></ruby>を<ruby>受<rt>う</rt></ruby>けた<ruby>後<rt>あと</rt></ruby>`, zh:"向海关申报、取得出口许可之后"},
+    {t:`<ruby>申告<rt>しんこく</rt></ruby>する<ruby>前<rt>まえ</rt></ruby>`, zh:"申报之前"},
+    {t:`<ruby>代金<rt>だいきん</rt></ruby>を<ruby>回収<rt>かいしゅう</rt></ruby>した<ruby>後<rt>あと</rt></ruby>`, zh:"收回货款之后"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。须先输出申告、取得输出许可（E/P），才能装船出口。",
+    "错误。申报前不得擅自装船出口。",
+    "错误。是否收款与能否装船的通关程序无关。"
+  ]
+},
+{
+  id:"d8q2", day:8, topic:"通关·关税", type:"3択",
+  q:`<ruby>日本<rt>にほん</rt></ruby>の<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>関税<rt>かんぜい</rt></ruby>で「<ruby>従価税<rt>じゅうかぜい</rt></ruby>」の<ruby>課税<rt>かぜい</rt></ruby><ruby>標準<rt>ひょうじゅん</rt></ruby>となる<ruby>価格<rt>かかく</rt></ruby>は、<ruby>原則<rt>げんそく</rt></ruby>としてどれか。`,
+  qzh:"日本进口关税中，“从价税”的计税标准价格原则上是哪一个？",
+  opts:[
+    {t:`CIF<ruby>価格<rt>かかく</rt></ruby>（<ruby>輸入港<rt>ゆにゅうこう</rt></ruby>までの<ruby>運賃<rt>うんちん</rt></ruby>・<ruby>保険料<rt>ほけんりょう</rt></ruby><ruby>込<rt>こ</rt></ruby>み）`, zh:"CIF价格（含到进口港的运费、保险费）"},
+    {t:`FOB<ruby>価格<rt>かかく</rt></ruby>`, zh:"FOB价格"},
+    {t:`<ruby>国内<rt>こくない</rt></ruby><ruby>小売<rt>こうり</rt></ruby><ruby>価格<rt>かかく</rt></ruby>`, zh:"国内零售价"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。日本关税估价原则上以CIF价格为课税标准。",
+    "错误。FOB不含运费保险费，不是日本从价税的课税标准。",
+    "错误。国内零售价不是进口关税的课税基础。"
+  ]
+},
+{
+  id:"d8q3", day:8, topic:"通关·关税", type:"3択",
+  q:`<ruby>特恵<rt>とっけい</rt></ruby><ruby>関税<rt>かんぜい</rt></ruby>（GSP）の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれか。`,
+  qzh:"关于特惠关税（GSP）的说明，正确的是哪一项？",
+  opts:[
+    {t:`<ruby>開発<rt>かいはつ</rt></ruby><ruby>途上国<rt>とじょうこく</rt></ruby>の<ruby>産品<rt>さんぴん</rt></ruby>に<ruby>通常<rt>つうじょう</rt></ruby>より<ruby>低<rt>ひく</rt></ruby>い<ruby>税率<rt>ぜいりつ</rt></ruby>を<ruby>適用<rt>てきよう</rt></ruby>する<ruby>制度<rt>せいど</rt></ruby>`, zh:"对发展中国家产品适用低于一般税率的制度"},
+    {t:`<ruby>先進国<rt>せんしんこく</rt></ruby>どうしで<ruby>関税<rt>かんぜい</rt></ruby>をゼロにする<ruby>制度<rt>せいど</rt></ruby>`, zh:"发达国家之间关税归零的制度"},
+    {t:`<ruby>輸出品<rt>ゆしゅつひん</rt></ruby>に<ruby>課<rt>か</rt></ruby>す<ruby>税<rt>ぜい</rt></ruby>`, zh:"对出口品课征的税"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。特惠关税对发展中国家产品给予低于普通/协定税率的优惠。",
+    "错误。那是发达国家间的自由贸易/协定，不是GSP。",
+    "错误。特惠关税是进口环节的优惠税率，不是出口税。"
+  ]
+},
+{
+  id:"d8q4", day:8, topic:"贸易保险", type:"2択",
+  q:`<ruby>海上<rt>かいじょう</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>のICC（<ruby>協会<rt>きょうかい</rt></ruby><ruby>貨物<rt>かもつ</rt></ruby><ruby>約款<rt>やっかん</rt></ruby>）では、ICC(A)が<ruby>最<rt>もっと</rt></ruby>も<ruby>担保<rt>たんぽ</rt></ruby><ruby>範囲<rt>はんい</rt></ruby>が<ruby>広<rt>ひろ</rt></ruby>い。`,
+  qzh:"海上保险的ICC（协会货物条款）中，ICC(A)的承保范围最广。对吗？",
+  opts:[ {t:`<ruby>正<rt>ただ</rt></ruby>しい（○）`, zh:"正确（○）"}, {t:`<ruby>誤<rt>あやま</rt></ruby>り（×）`, zh:"错误（×）"} ],
+  ans:0,
+  optExp:[
+    "正确。ICC(A)担保范围最广（近似全险），(C)最窄。",
+    "错误。(A)最广、(C)最窄，原句成立。"
+  ],
+  note:"广→窄：ICC(A) > ICC(B) > ICC(C)。"
+},
+{
+  id:"d8q5", day:8, topic:"贸易书类·运送", type:"3択",
+  q:`コンテナ<ruby>単位<rt>たんい</rt></ruby>で<ruby>満載<rt>まんさい</rt></ruby>されたFCL<ruby>貨物<rt>かもつ</rt></ruby>の<ruby>受<rt>う</rt></ruby>け<ruby>渡<rt>わた</rt></ruby>しが<ruby>行<rt>おこな</rt></ruby>われる<ruby>場所<rt>ばしょ</rt></ruby>はどれか。`,
+  qzh:"以整箱满载的FCL货物，交接在哪个场所进行？",
+  opts:[
+    {t:`CY（コンテナ・ヤード）`, zh:"CY（集装箱堆场）"},
+    {t:`CFS（コンテナ・フレート・ステーション）`, zh:"CFS（集装箱货运站）"},
+    {t:`<ruby>上屋<rt>うわや</rt></ruby>`, zh:"码头仓库（上屋）"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。FCL（整箱）在CY交接。",
+    "错误。CFS是LCL（拼箱）小口货混载/交接的地方。",
+    "错误。上屋是在来船杂货的临时存放处，非FCL交接点。"
+  ],
+  note:"配套记忆：FCL↔CY，LCL↔CFS。"
+},
+{
+  id:"d8q6", day:8, topic:"贸易书类·运送", type:"3択",
+  q:`<ruby>貨物<rt>かもつ</rt></ruby>の<ruby>損傷<rt>そんしょう</rt></ruby>や<ruby>数量<rt>すうりょう</rt></ruby>の<ruby>過不足<rt>かぶそく</rt></ruby>を<ruby>示<rt>しめ</rt></ruby>す<ruby>摘要<rt>てきよう</rt></ruby>（リマーク）が<ruby>付<rt>つ</rt></ruby>いた<ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>を<ruby>何<rt>なに</rt></ruby>というか。`,
+  qzh:"附有表示货物破损或数量短溢批注（remark）的提单叫什么？",
+  opts:[
+    {t:`<ruby>故障付<rt>こしょうつき</rt></ruby><ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>（Foul B/L）`, zh:"不清洁提单（Foul/Dirty B/L）"},
+    {t:`<ruby>無故障<rt>むこしょう</rt></ruby><ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>（Clean B/L）`, zh:"清洁提单（Clean B/L）"},
+    {t:`<ruby>受取<rt>うけとり</rt></ruby><ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>`, zh:"备运提单（received B/L）"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。带瑕疵批注的是故障付（不清洁）提单。",
+    "错误。无批注的是无故障（清洁）提单。",
+    "错误。受取船荷证券指货物收讫但尚未装船，与有无批注是另一维度。"
+  ],
+  note:"信用证交易通常要求 Clean B/L（无故障提单）。"
+},
+{
+  id:"d8q7", day:8, topic:"贸易经济知识", type:"3択",
+  q:`WTOの「<ruby>最恵国<rt>さいけいこく</rt></ruby><ruby>待遇<rt>たいぐう</rt></ruby>（MFN）」<ruby>原則<rt>げんそく</rt></ruby>の<ruby>説明<rt>せつめい</rt></ruby>として<ruby>正<rt>ただ</rt></ruby>しいものはどれか。`,
+  qzh:"关于WTO“最惠国待遇（MFN）”原则的说明，正确的是哪一项？",
+  opts:[
+    {t:`ある<ruby>加盟国<rt>かめいこく</rt></ruby>に<ruby>与<rt>あた</rt></ruby>えた<ruby>有利<rt>ゆうり</rt></ruby>な<ruby>条件<rt>じょうけん</rt></ruby>を、<ruby>他<rt>た</rt></ruby>の<ruby>全<rt>すべ</rt></ruby>ての<ruby>加盟国<rt>かめいこく</rt></ruby>にも<ruby>等<rt>ひと</rt></ruby>しく<ruby>与<rt>あた</rt></ruby>える`, zh:"给予某成员国的优惠条件，须同等给予所有其他成员国"},
+    {t:`<ruby>自国<rt>じこく</rt></ruby><ruby>産業<rt>さんぎょう</rt></ruby>だけを<ruby>優遇<rt>ゆうぐう</rt></ruby>する`, zh:"只优待本国产业"},
+    {t:`<ruby>途上国<rt>とじょうこく</rt></ruby>だけを<ruby>優遇<rt>ゆうぐう</rt></ruby>する`, zh:"只优待发展中国家"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。MFN＝对一国的优惠须无差别地适用于所有成员国。",
+    "错误。只优待本国是与自由贸易相悖的保护主义。",
+    "错误。只优待途上国是特惠关税等例外，不是MFN本身。"
+  ]
+},
+{
+  id:"d8q8", day:8, topic:"贸易经济知识", type:"3択",
+  q:`「<ruby>産業<rt>さんぎょう</rt></ruby>の<ruby>空洞化<rt>くうどうか</rt></ruby>」とは<ruby>何<rt>なに</rt></ruby>か。`,
+  qzh:"什么是“产业空心化”？",
+  opts:[
+    {t:`<ruby>製造業<rt>せいぞうぎょう</rt></ruby>の<ruby>生産<rt>せいさん</rt></ruby><ruby>拠点<rt>きょてん</rt></ruby>が<ruby>海外<rt>かいがい</rt></ruby>へ<ruby>移転<rt>いてん</rt></ruby>し、<ruby>国内<rt>こくない</rt></ruby><ruby>産業<rt>さんぎょう</rt></ruby>が<ruby>衰退<rt>すいたい</rt></ruby>する<ruby>現象<rt>げんしょう</rt></ruby>`, zh:"制造业生产基地转移到海外、国内产业衰退的现象"},
+    {t:`<ruby>輸入<rt>ゆにゅう</rt></ruby>が<ruby>減<rt>へ</rt></ruby>って<ruby>黒字<rt>くろじ</rt></ruby>が<ruby>増<rt>ふ</rt></ruby>えること`, zh:"进口减少、顺差增加"},
+    {t:`<ruby>関税<rt>かんぜい</rt></ruby>が<ruby>上<rt>あ</rt></ruby>がること`, zh:"关税上升"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。空心化＝生产据点外移导致国内制造业衰退、就业流失。",
+    "错误。这描述的是贸易收支，不是空心化。",
+    "错误。关税升降与产业空心化不是一回事。"
+  ]
+},
+
+/* ============ Day 9：贸易英语扩充（重点·英文和訳） ============ */
+{
+  id:"d9q1", day:9, topic:"贸易英语", type:"英文和訳3択",
+  q:`<ruby>次<rt>つぎ</rt></ruby>の<ruby>英文<rt>えいぶん</rt></ruby>の<ruby>意味<rt>いみ</rt></ruby>として<ruby>最<rt>もっと</rt></ruby>も<ruby>適切<rt>てきせつ</rt></ruby>なものはどれか。「Please find enclosed our pro forma invoice.」`,
+  qzh:"下列英文最贴切的意思是哪一项？「Please find enclosed our pro forma invoice.」",
+  opts:[
+    {t:`プロフォーマ・インボイス（<ruby>見積<rt>みつ</rt></ruby>もり<ruby>送<rt>おく</rt></ruby>り<ruby>状<rt>じょう</rt></ruby>）を<ruby>同封<rt>どうふう</rt></ruby>いたします`, zh:"随函附上我方形式发票（预估发票）"},
+    {t:`<ruby>請求書<rt>せいきゅうしょ</rt></ruby>の<ruby>支払<rt>しはらい</rt></ruby>を<ruby>督促<rt>とくそく</rt></ruby>します`, zh:"催促支付账单"},
+    {t:`<ruby>注文<rt>ちゅうもん</rt></ruby>を<ruby>取<rt>と</rt></ruby>り<ruby>消<rt>け</rt></ruby>します`, zh:"取消订单"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。find enclosed＝随函附上；pro forma invoice＝形式发票（报价用）。",
+    "错误。句中没有催款（demand payment）之意。",
+    "错误。句中没有取消订单之意。"
+  ]
+},
+{
+  id:"d9q2", day:9, topic:"贸易英语", type:"英文和訳3択",
+  q:`「The goods will be shipped by the end of next month.」の<ruby>意味<rt>いみ</rt></ruby>はどれか。`,
+  qzh:"「The goods will be shipped by the end of next month.」的意思是哪一项？",
+  opts:[
+    {t:`<ruby>商品<rt>しょうひん</rt></ruby>は<ruby>来月末<rt>らいげつまつ</rt></ruby>までに<ruby>船積<rt>ふなづ</rt></ruby>みされます`, zh:"货物将在下月底前装运"},
+    {t:`<ruby>商品<rt>しょうひん</rt></ruby>は<ruby>来月<rt>らいげつ</rt></ruby><ruby>初<rt>はじ</rt></ruby>めに<ruby>到着<rt>とうちゃく</rt></ruby>します`, zh:"货物将在下月初到达"},
+    {t:`<ruby>商品<rt>しょうひん</rt></ruby>は<ruby>出荷<rt>しゅっか</rt></ruby>できません`, zh:"货物无法发运"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。be shipped＝被装运；by the end of next month＝下月底前。",
+    "错误。是“装运”而非“到达”，时间也是月底前。",
+    "错误。句子是肯定将装运，不是不能发运。"
+  ]
+},
+{
+  id:"d9q3", day:9, topic:"贸易英语", type:"英文和訳3択",
+  q:`「We regret that we cannot accept your claim.」の<ruby>意味<rt>いみ</rt></ruby>はどれか。`,
+  qzh:"「We regret that we cannot accept your claim.」的意思是哪一项？",
+  opts:[
+    {t:`<ruby>残念<rt>ざんねん</rt></ruby>ながら、<ruby>貴社<rt>きしゃ</rt></ruby>のクレームをお<ruby>受<rt>う</rt></ruby>けできません`, zh:"很遗憾，无法接受贵公司的索赔"},
+    {t:`<ruby>喜<rt>よろこ</rt></ruby>んでご<ruby>注文<rt>ちゅうもん</rt></ruby>をお<ruby>受<rt>う</rt></ruby>けします`, zh:"乐意接受您的订单"},
+    {t:`<ruby>代金<rt>だいきん</rt></ruby>を<ruby>返金<rt>へんきん</rt></ruby>いたします`, zh:"我们将退款"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。regret＝遗憾；cannot accept your claim＝无法接受索赔。",
+    "错误。句中是拒绝claim，不是接受订单。",
+    "错误。句中没有退款之意，反而是拒赔。"
+  ],
+  note:"claim 在贸易里多指“索赔”，不是“声称”。"
+},
+{
+  id:"d9q4", day:9, topic:"贸易英语", type:"語群選択",
+  q:`「<ruby>原産地<rt>げんさんち</rt></ruby><ruby>証明書<rt>しょうめいしょ</rt></ruby>」を<ruby>表<rt>あらわ</rt></ruby>す<ruby>英語<rt>えいご</rt></ruby>はどれか。`,
+  qzh:"表示“原产地证明书”的英语是哪一个？",
+  opts:[
+    {t:`certificate of origin`, zh:"原产地证明书"},
+    {t:`bill of lading`, zh:"提单"},
+    {t:`insurance policy`, zh:"保险单"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。certificate of origin＝原产地证明书。",
+    "错误。bill of lading是提单（B/L）。",
+    "错误。insurance policy是保险单。"
+  ]
+},
+{
+  id:"d9q5", day:9, topic:"贸易英语", type:"語群選択",
+  q:`「<ruby>保険<rt>ほけん</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>」を<ruby>表<rt>あらわ</rt></ruby>す<ruby>英語<rt>えいご</rt></ruby>はどれか。`,
+  qzh:"表示“保险单”的英语是哪一个？",
+  opts:[
+    {t:`insurance policy`, zh:"保险单"},
+    {t:`packing list`, zh:"装箱单"},
+    {t:`letter of credit`, zh:"信用证"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。insurance policy＝保险单（证券）。",
+    "错误。packing list是装箱单。",
+    "错误。letter of credit是信用证（L/C）。"
+  ]
+},
+{
+  id:"d9q6", day:9, topic:"贸易英语", type:"語群選択",
+  q:`<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>でいう「partial shipment」の<ruby>意味<rt>いみ</rt></ruby>はどれか。`,
+  qzh:"贸易条款中“partial shipment”的意思是哪一个？",
+  opts:[
+    {t:`<ruby>分割<rt>ぶんかつ</rt></ruby><ruby>船積<rt>ふなづ</rt></ruby>み`, zh:"分批装运"},
+    {t:`<ruby>積<rt>つ</rt></ruby>み<ruby>替<rt>か</rt></ruby>え（transshipment）`, zh:"转运/换船（transshipment）"},
+    {t:`<ruby>全量<rt>ぜんりょう</rt></ruby><ruby>一括<rt>いっかつ</rt></ruby><ruby>船積<rt>ふなづ</rt></ruby>み`, zh:"全量一次装运"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。partial shipment＝分批（分割）装运。",
+    "错误。transshipment是中途转船/转运，不是分批。",
+    "错误。全量一次装运与“partial（部分）”相反。"
+  ],
+  note:"区分：partial shipment（分批）↔ transshipment（转运）。"
+},
+{
+  id:"d9q7", day:9, topic:"贸易英语", type:"英文和訳3択",
+  q:`「This offer is subject to our final confirmation.」の<ruby>意味<rt>いみ</rt></ruby>はどれか。`,
+  qzh:"「This offer is subject to our final confirmation.」的意思是哪一项？",
+  opts:[
+    {t:`このオファーは<ruby>当社<rt>とうしゃ</rt></ruby>の<ruby>最終<rt>さいしゅう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby>を<ruby>条件<rt>じょうけん</rt></ruby>とします`, zh:"本报价以我方最终确认为条件（确认后才生效）"},
+    {t:`このオファーは<ruby>即時<rt>そくじ</rt></ruby>に<ruby>確定<rt>かくてい</rt></ruby>します`, zh:"本报价立即确定生效"},
+    {t:`このオファーは<ruby>無効<rt>むこう</rt></ruby>です`, zh:"本报价无效"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。subject to our final confirmation＝以我方最终确认为条件（即“确认条件付”报价）。",
+    "错误。带confirmation条件，并非立即确定。",
+    "错误。句子说的是附条件，不是无效。"
+  ],
+  note:"subject to ～＝以～为条件。"
+},
+{
+  id:"d9q8", day:9, topic:"贸易英语", type:"語群選択",
+  q:`「freight prepaid」の<ruby>意味<rt>いみ</rt></ruby>はどれか。`,
+  qzh:"“freight prepaid”的意思是哪一个？",
+  opts:[
+    {t:`<ruby>運賃<rt>うんちん</rt></ruby><ruby>前払<rt>まえばら</rt></ruby>い`, zh:"运费预付"},
+    {t:`<ruby>運賃<rt>うんちん</rt></ruby><ruby>着払<rt>ちゃくばら</rt></ruby>い（freight collect）`, zh:"运费到付（freight collect）"},
+    {t:`<ruby>保険料<rt>ほけんりょう</rt></ruby><ruby>込<rt>こ</rt></ruby>み`, zh:"含保险费"}
+  ],
+  ans:0,
+  optExp:[
+    "正确。freight prepaid＝运费预付（出口地已付）。",
+    "错误。运费到付是freight collect，正相反。",
+    "错误。freight指运费，与保险费无关。"
+  ],
+  note:"对比：freight prepaid（预付）↔ freight collect（到付）。"
 }
 ];
 

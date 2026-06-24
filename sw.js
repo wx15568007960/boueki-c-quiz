@@ -1,6 +1,6 @@
 /* 离线缓存 service worker（苹果 Safari / iOS / iPadOS / macOS 兼容）
  * 更新题目后：把下面 CACHE 的版本号 +1（如 v2），用户重开一次 App 即自动更新。 */
-const CACHE = 'bjt-pwa-v3';
+const CACHE = 'bjt-pwa-v4';
 const ASSETS = [
   './', './index.html', './questions.js', './manifest.webmanifest',
   './icon-180.png', './icon-192.png', './icon-512.png', './icon-512-maskable.png'
