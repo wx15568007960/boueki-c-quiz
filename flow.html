@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>贸易流程图解 · 贸易C级</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#273449;--line:#334155;--txt:#e2e8f0;--sub:#94a3b8;--pri:#38bdf8;--pri2:#0ea5e9;--ok:#22c55e;--warn:#f59e0b;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-size:16px;line-height:1.7;
+font-family:"Hiragino Sans","Yu Gothic","PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;}
+.wrap{max-width:680px;margin:0 auto;padding:14px 14px 60px;}
+header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.hd{max-width:680px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.hd h1{font-size:15px;margin:0;font-weight:700;}.hd h1 small{display:block;color:var(--sub);font-weight:400;font-size:11px;}
+.toggle{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);}
+.switch{width:42px;height:24px;border-radius:14px;background:var(--line);position:relative;cursor:pointer;flex:0 0 auto;}
+.switch.on{background:var(--pri2);}.switch i{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;}.switch.on i{left:20px;}
+rt{font-size:.58em;color:var(--pri);font-weight:500;}body.hide-furi rt{display:none;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0;}
+.intro h2{font-size:15px;margin:0 0 8px;}
+.muted{color:var(--sub);font-size:13.5px;}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.party{display:flex;align-items:center;gap:7px;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-size:12.5px;}
+.dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;}
+.party .ja{color:var(--sub);font-size:11px;}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;overflow:hidden;}
+.step-h{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;}
+.step-h:active{background:var(--card2);}
+.num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--pri2);color:#04222e;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.step-t{flex:1;min-width:0;}
+.step-t .zh{font-weight:700;font-size:14.5px;}
+.step-t .ja{font-size:12px;color:var(--sub);margin-top:1px;}
+.flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:5px;}
+.chip{font-size:10.5px;padding:2px 7px;border-radius:20px;font-weight:700;color:#04181f;}
+.arr{color:var(--sub);font-size:11px;}
+.caret{flex:0 0 auto;color:var(--sub);transition:transform .2s;font-size:13px;}
+.step.open .caret{transform:rotate(90deg);}
+.body{display:none;padding:0 14px 14px 14px;border-top:1px dashed var(--line);}
+.step.open .body{display:block;}
+.body .desc{font-size:14px;margin:12px 0;}
+.lbl{font-size:11px;color:var(--sub);font-weight:700;letter-spacing:.5px;margin:12px 0 6px;}
+.term{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;margin-bottom:7px;font-size:13.5px;}
+.term .ja{font-weight:700;}.term .en{color:var(--pri);font-size:12px;}.term .zh{color:var(--sub);font-size:12.5px;}
+.docs{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:9px 11px;font-size:12.5px;color:var(--warn);margin-top:10px;}
+.docs b{color:var(--warn);}
+.toolbar{display:flex;gap:10px;margin:12px 0;}
+.tbtn{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px;font-size:13px;cursor:pointer;font-family:inherit;}
+.back{display:inline-block;color:var(--pri);text-decoration:none;font-size:14px;padding:8px 0;}
+.tipbar{font-size:12px;color:var(--sub);margin-top:16px;text-align:center;}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <h1>贸易流程图解<small>一笔信用证交易，从签约到收款</small></h1>
+  <div class="toggle">假名<div class="switch on" id="furiSwitch" onclick="toggleFuri()"><i></i></div></div>
+</div></header>
+
+<div class="wrap">
+  <a class="back" href="index.html">‹ 返回练习</a>
+  <div class="intro">
+    <h2>怎么看这张图</h2>
+    <div class="muted">把整笔交易想象成一条<b>时间线</b>：货物、单据、钱在七个角色之间按顺序流动。先顺着 1→12 把"谁对谁做了什么"串一遍，再去记每一步的日语术语，业务逻辑就立起来了。点每一步可展开细节。</div>
+    <div class="legend" id="legend"></div>
+  </div>
+  <div class="toolbar">
+    <button class="tbtn" onclick="setAll(true)">全部展开</button>
+    <button class="tbtn" onclick="setAll(false)">全部收起</button>
+  </div>
+  <div id="steps"></div>
+  <div class="tipbar">提示：术语格式为「日语(假名) · 中文 · 英文」，三语一起记最省力。</div>
+  <a class="back" href="index.html">‹ 返回练习</a>
+</div>
+
+<script>
+const P={
+ EX:{n:'出口商',ja:'輸出者',c:'#38bdf8'},
+ IM:{n:'进口商',ja:'輸入者',c:'#f59e0b'},
+ EXB:{n:'出口地银行',ja:'通知/買取銀行',c:'#34d399'},
+ IMB:{n:'开证行',ja:'発行銀行',c:'#a78bfa'},
+ SHIP:{n:'船公司',ja:'船会社',c:'#60a5fa'},
+ CUS:{n:'海关',ja:'税関',c:'#f87171'},
+ INS:{n:'保险公司',ja:'保険会社',c:'#2dd4bf'}
+};
+const STEPS=[
+ {t:'签订买卖合同', ja:'<ruby>売買<rt>ばいばい</rt></ruby><ruby>契約<rt>けいやく</rt></ruby>', f:['EX','IM'],
+  desc:'出口商与进口商就品名、数量、价格、<b>贸易条件(Incoterms)</b>、结算方式(如信用证)等谈妥并签合同。这一步定下后面所有费用与风险的分界。',
+  terms:[['<ruby>売買<rt>ばいばい</rt></ruby><ruby>契約<rt>けいやく</rt></ruby>','买卖合同','sales contract'],
+         ['<ruby>取引<rt>とりひき</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>','交易条件','terms of trade'],
+         ['インコタームズ2020','国际贸易术语','Incoterms 2020']],
+  docs:'产出：合同书 / Contract、Proforma Invoice(形式发票)'},
+
+ {t:'进口商申请开信用证', ja:'<ruby>信用状<rt>しんようじょう</rt></ruby>の<ruby>発行<rt>はっこう</rt></ruby><ruby>依頼<rt>いらい</rt></ruby>', f:['IM','IMB'],
+  desc:'进口商向自己的银行(开证行)申请开立信用证(L/C)，并提供担保。开证行据此对出口商作出付款承诺。',
+  terms:[['<ruby>信用状<rt>しんようじょう</rt></ruby>','信用证','letter of credit (L/C)'],
+         ['<ruby>発行<rt>はっこう</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>','开证行','issuing bank'],
+         ['<ruby>担保<rt>たんぽ</rt></ruby>','担保','collateral']],
+  docs:'资金：进口商向开证行交保证金/授信'},
+
+ {t:'开证行开证、经通知行通知出口商', ja:'<ruby>信用状<rt>しんようじょう</rt></ruby>の<ruby>発行<rt>はっこう</rt></ruby>・<ruby>通知<rt>つうち</rt></ruby>', f:['IMB','EXB','EX'],
+  desc:'开证行开出 L/C，经出口地的通知行转达给出口商。出口商收到 L/C＝拿到"只要单据合规就能收款"的保证。',
+  terms:[['<ruby>通知<rt>つうち</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>','通知行','advising bank'],
+         ['<ruby>確認<rt>かくにん</rt></ruby><ruby>信用状<rt>しんようじょう</rt></ruby>','保兑信用证','confirmed L/C'],
+         ['<ruby>取消<rt>とりけし</rt></ruby><ruby>不能<rt>ふのう</rt></ruby><ruby>信用状<rt>しんようじょう</rt></ruby>','不可撤销信用证','irrevocable L/C']],
+  docs:'流转：L/C 正本到出口商手中'},
+
+ {t:'出口商订舱、投保', ja:'<ruby>船腹<rt>せんぷく</rt></ruby><ruby>予約<rt>よやく</rt></ruby>・<ruby>保険<rt>ほけん</rt></ruby><ruby>手配<rt>てはい</rt></ruby>', f:['EX','SHIP','INS'],
+  desc:'出口商向船公司订舱位；若条件是 CIF/CIP，由卖方按 CIF×110% 投保海上保险(其他条件由相应方投保)。',
+  terms:[['<ruby>船腹<rt>せんぷく</rt></ruby><ruby>予約<rt>よやく</rt></ruby>','订舱','booking'],
+         ['<ruby>海上<rt>かいじょう</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>','海上保险','marine insurance'],
+         ['<ruby>保険<rt>ほけん</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>','保险单','insurance policy']],
+  docs:'产出：舱位确认、保险单(Insurance Policy)'},
+
+ {t:'出口通关', ja:'<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>通関<rt>つうかん</rt></ruby>', f:['EX','CUS'],
+  desc:'出口商(或报关行)向海关申报，海关审查后给"输出许可"。原则上拿到许可才能装船出口。',
+  terms:[['<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>申告<rt>しんこく</rt></ruby>','出口申报','export declaration'],
+         ['<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>許可<rt>きょか</rt></ruby>','出口许可','export permit (E/P)'],
+         ['<ruby>通関<rt>つうかん</rt></ruby><ruby>業者<rt>ぎょうしゃ</rt></ruby>','报关行','customs broker']],
+  docs:'产出：输出许可 E/P'},
+
+ {t:'装船，船公司签发提单', ja:'<ruby>船積<rt>ふなづ</rt></ruby>み', f:['EX','SHIP'],
+  desc:'货物装上船。船公司签发<b>提单(B/L)</b>——它既是收货证明、运输契约，又是可转让的物权凭证(凭它提货)。',
+  terms:[['<ruby>船積<rt>ふなづ</rt></ruby>み','装船','shipment'],
+         ['<ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>','提单','bill of lading (B/L)'],
+         ['<ruby>船積<rt>ふなづみ</rt></ruby><ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>','已装船提单','shipped/on board B/L']],
+  docs:'物流：货 → 船；产出：B/L'},
+
+ {t:'备齐船积单据', ja:'<ruby>船積<rt>ふなづみ</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>の<ruby>作成<rt>さくせい</rt></ruby>', f:['EX'],
+  desc:'出口商按 L/C 要求凑齐一整套单据：发票、装箱单、B/L、保险单、原产地证明等。单据必须与 L/C 条件一致，否则会有"不符点"。',
+  terms:[['<ruby>船積<rt>ふなづみ</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>','船积单据','shipping documents'],
+         ['インボイス','商业发票','commercial invoice'],
+         ['パッキングリスト','装箱单','packing list'],
+         ['<ruby>原産地<rt>げんさんち</rt></ruby><ruby>証明書<rt>しょうめいしょ</rt></ruby>','原产地证明','certificate of origin']],
+  docs:'产出：整套船积书类'},
+
+ {t:'开汇票交银行买取(议付)', ja:'<ruby>荷為替<rt>にがわせ</rt></ruby><ruby>手形<rt>てがた</rt></ruby>の<ruby>買取<rt>かいとり</rt></ruby>', f:['EX','EXB'],
+  desc:'出口商开出汇票、附上船积单据，交出口地银行<b>买取(议付)</b>。银行先把货款垫付给出口商——出口商船积后就能拿到钱。',
+  terms:[['<ruby>荷為替<rt>にがわせ</rt></ruby><ruby>手形<rt>てがた</rt></ruby>','跟单汇票','documentary bill'],
+         ['<ruby>買取<rt>かいとり</rt></ruby>','买取/议付','negotiation'],
+         ['<ruby>一覧払<rt>いちらんばら</rt></ruby>い','即期付款','at sight']],
+  docs:'资金：买取行 → 出口商(垫付货款)'},
+
+ {t:'单据寄开证行、索偿', ja:'<ruby>書類<rt>しょるい</rt></ruby>の<ruby>送付<rt>そうふ</rt></ruby>・<ruby>取立<rt>とりたて</rt></ruby>', f:['EXB','IMB'],
+  desc:'买取行把整套单据寄给开证行，并向其索回垫付的款项。',
+  terms:[['<ruby>送付<rt>そうふ</rt></ruby>','寄送','dispatch'],
+         ['<ruby>取立<rt>とりたて</rt></ruby>','托收/索偿','collection'],
+         ['<ruby>償還<rt>しょうかん</rt></ruby>','偿付','reimbursement']],
+  docs:'流转：单据 → 开证行；资金：开证行 → 买取行'},
+
+ {t:'开证行审单、进口商付款赎单', ja:'<ruby>呈示<rt>ていじ</rt></ruby>・<ruby>決済<rt>けっさい</rt></ruby>', f:['IMB','IM'],
+  desc:'开证行审核单据，无误后通知进口商付款(或承兑)，进口商付款后取得单据(含 B/L)。若单据与 L/C 不符即"discrepancy(不符点)"，可能被拒付。',
+  terms:[['<ruby>呈示<rt>ていじ</rt></ruby>','提示','presentation'],
+         ['<ruby>決済<rt>けっさい</rt></ruby>','结算','settlement'],
+         ['ディスクレ','不符点','discrepancy']],
+  docs:'资金：进口商 → 开证行；流转：单据 → 进口商'},
+
+ {t:'货到港、进口通关', ja:'<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>通関<rt>つうかん</rt></ruby>', f:['IM','CUS'],
+  desc:'货到目的港。进口商办输入(纳税)申报，缴关税、消费税等，取得"输入许可"。日本关税以 CIF 价格为课税标准。',
+  terms:[['<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>申告<rt>しんこく</rt></ruby>','进口申报','import declaration'],
+         ['<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>許可<rt>きょか</rt></ruby>','进口许可','import permit (I/P)'],
+         ['<ruby>関税<rt>かんぜい</rt></ruby>','关税','customs duty']],
+  docs:'资金：进口商 → 海关(关税等)；产出：输入许可 I/P'},
+
+ {t:'凭单提货，交易完成', ja:'<ruby>貨物<rt>かもつ</rt></ruby>の<ruby>引取<rt>ひきと</rt></ruby>り', f:['IM','SHIP'],
+  desc:'进口商凭 B/L 向船公司换取提货单、提货。至此货、单、款各归其位，一笔交易闭环。若货有问题，再进入"索赔/保险求偿"环节。',
+  terms:[['<ruby>荷渡<rt>にわた</rt></ruby>し','交货/放货','delivery'],
+         ['<ruby>引取<rt>ひきと</rt></ruby>り','提货','taking delivery'],
+         ['クレーム','索赔','claim']],
+  docs:'物流：船 → 进口商(凭 B/L 提货)'}
+];
+
+function chip(k){const p=P[k];return '<span class="chip" style="background:'+p.c+'">'+p.n+'</span>';}
+function flowHTML(f){return f.map(chip).join('<span class="arr">→</span>');}
+function render(){
+  document.getElementById('legend').innerHTML=Object.keys(P).map(k=>{const p=P[k];
+    return '<div class="party"><span class="dot" style="background:'+p.c+'"></span><span>'+p.n+'<span class="ja"> '+p.ja+'</span></span></div>';}).join('');
+  document.getElementById('steps').innerHTML=STEPS.map((s,i)=>{
+    const terms=s.terms.map(t=>'<div class="term"><span class="ja">'+t[0]+'</span> · <span class="zh">'+t[1]+'</span> · <span class="en">'+t[2]+'</span></div>').join('');
+    return '<div class="step" id="st'+i+'"><div class="step-h" onclick="toggle('+i+')">'+
+      '<div class="num">'+(i+1)+'</div><div class="step-t"><div class="zh">'+s.t+'</div><div class="ja">'+s.ja+'</div>'+
+      '<div class="flow">'+flowHTML(s.f)+'</div></div><div class="caret">▶</div></div>'+
+      '<div class="body"><div class="desc">'+s.desc+'</div><div class="lbl">关键术语</div>'+terms+
+      '<div class="docs"><b>📄 单据 / 资金：</b>'+s.docs+'</div></div></div>';
+  }).join('');
+}
+function toggle(i){document.getElementById('st'+i).classList.toggle('open');}
+function setAll(o){document.querySelectorAll('.step').forEach(e=>e.classList.toggle('open',o));}
+let furi=true;try{furi=localStorage.getItem('bjt_set')?JSON.parse(localStorage.getItem('bjt_set')).furi!==false:true;}catch(e){}
+function applyFuri(){document.body.classList.toggle('hide-furi',!furi);document.getElementById('furiSwitch').classList.toggle('on',furi);}
+function toggleFuri(){furi=!furi;try{localStorage.setItem('bjt_set',JSON.stringify({furi:furi}));}catch(e){}applyFuri();}
+render();applyFuri();
+</script>
+</body>
+</html>
