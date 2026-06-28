@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<title>章节学习手册 · 贸易C级</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#273449;--line:#334155;--txt:#e2e8f0;--sub:#94a3b8;--pri:#38bdf8;--pri2:#0ea5e9;--ok:#22c55e;--warn:#f59e0b;}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-size:16px;line-height:1.7;
+font-family:"Hiragino Sans","Yu Gothic","PingFang SC","Noto Sans CJK SC",system-ui,sans-serif;}
+.wrap{max-width:680px;margin:0 auto;padding:14px 14px 60px;}
+header{position:sticky;top:0;z-index:20;background:rgba(15,23,42,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.hd{max-width:680px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.hd h1{font-size:15px;margin:0;font-weight:700;}.hd h1 small{display:block;color:var(--sub);font-weight:400;font-size:11px;}
+.toggle{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub);}
+.switch{width:42px;height:24px;border-radius:14px;background:var(--line);position:relative;cursor:pointer;flex:0 0 auto;}
+.switch.on{background:var(--pri2);}.switch i{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;}.switch.on i{left:20px;}
+rt{font-size:.58em;color:var(--pri);font-weight:500;}body.hide-furi rt{display:none;}
+.intro{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:14px 0;}
+.muted{color:var(--sub);font-size:13.5px;}
+.toolbar{display:flex;gap:10px;margin:12px 0;}
+.tbtn{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--txt);border-radius:10px;padding:9px;font-size:13px;cursor:pointer;font-family:inherit;}
+.ch{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;overflow:hidden;}
+.ch-h{display:flex;align-items:center;gap:12px;padding:13px 14px;cursor:pointer;}
+.ch-h:active{background:var(--card2);}
+.num{flex:0 0 34px;height:34px;border-radius:9px;background:var(--pri2);color:#04222e;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.ch-t{flex:1;min-width:0;}.ch-t .zh{font-weight:700;font-size:14.5px;}.ch-t .ja{font-size:12px;color:var(--sub);margin-top:1px;}
+.caret{flex:0 0 auto;color:var(--sub);transition:transform .2s;font-size:13px;}.ch.open .caret{transform:rotate(90deg);}
+.body{display:none;padding:0 14px 14px 14px;border-top:1px dashed var(--line);}.ch.open .body{display:block;}
+.lead{font-size:13.5px;margin:12px 0;background:rgba(56,189,248,.08);border-radius:9px;padding:10px 12px;}
+.lbl{font-size:11px;color:var(--sub);font-weight:700;letter-spacing:.5px;margin:12px 0 6px;}
+.term{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:8px 11px;margin-bottom:7px;font-size:13.5px;}
+.term .ja{font-weight:700;}.term .zh{color:var(--sub);font-size:12.5px;}.term .en{color:var(--pri);font-size:12px;}
+.back{display:inline-block;color:var(--pri);text-decoration:none;font-size:14px;padding:8px 0;}
+.tip{font-size:12px;color:var(--sub);margin-top:16px;text-align:center;}
+a.inl{color:var(--pri);text-decoration:none;}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <h1>章节学习手册<small>按课本目录 · 概念导读 + 核心术语</small></h1>
+  <div class="toggle">假名<div class="switch on" id="furiSwitch" onclick="toggleFuri()"><i></i></div></div>
+</div></header>
+<div class="wrap">
+  <a class="back" href="index.html">‹ 返回练习</a>
+  <div class="intro">
+    <div class="muted">配合你的课本一起用:读某一章前,先看这里的<b>中文概念导读</b>抓住业务逻辑,再把<b>核心术语</b>(日语·假名·中文·英文)记一遍,然后回去读日语原文就轻松多了。流程类章节点进去有「业务流程图解」链接。<br>(本手册为原创整理,非课本原文)</div>
+  </div>
+  <div class="toolbar">
+    <button class="tbtn" onclick="setAll(true)">全部展开</button>
+    <button class="tbtn" onclick="setAll(false)">全部收起</button>
+  </div>
+  <div id="chapters"></div>
+  <div class="tip">术语格式:日语(假名) · 中文 · 英文 —— 三语一起记最省力。</div>
+  <a class="back" href="index.html">‹ 返回练习</a>
+</div>
+<script>
+const CH=[
+ {n:1, zh:"贸易交易的全貌", ja:"<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>取引<rt>とりひき</rt></ruby>の<ruby>全体像<rt>ぜんたいぞう</rt></ruby>の<ruby>理解<rt>りかい</rt></ruby>",
+  lead:"先建立『一笔交易』的整体框架。和国内交易比,贸易跨语言/货币/法律/距离,风险更大,于是有了信用证、保险等机制。核心是三条流:<b>货物流、资金流、单据流</b>。👉 建议先看 <a class='inl' href='flow.html'>业务流程图解</a>。",
+  terms:[
+   ["<ruby>貿易<rt>ぼうえき</rt></ruby>","贸易/对外贸易","trade"],
+   ["<ruby>国内<rt>こくない</rt></ruby><ruby>取引<rt>とりひき</rt></ruby>","国内交易","domestic transaction"],
+   ["<ruby>三<rt>みっ</rt></ruby>つの<ruby>流<rt>なが</rt></ruby>れ","三条流(货/钱/单据)","the three flows"],
+   ["<ruby>直接<rt>ちょくせつ</rt></ruby><ruby>貿易<rt>ぼうえき</rt></ruby>","直接贸易","direct trade"],
+   ["<ruby>間接<rt>かんせつ</rt></ruby><ruby>貿易<rt>ぼうえき</rt></ruby>","间接贸易(经商社)","indirect trade"],
+   ["<ruby>並行<rt>へいこう</rt></ruby><ruby>輸入<rt>ゆにゅう</rt></ruby>","平行进口","parallel import"],
+   ["<ruby>信用状<rt>しんようじょう</rt></ruby>","信用证","letter of credit (L/C)"],
+   ["<ruby>外国<rt>がいこく</rt></ruby><ruby>為替<rt>かわせ</rt></ruby>","外汇","foreign exchange"]
+  ]},
+ {n:2, zh:"从市场调查到合同成立", ja:"<ruby>市場<rt>しじょう</rt></ruby><ruby>調査<rt>ちょうさ</rt></ruby>から<ruby>契約<rt>けいやく</rt></ruby>の<ruby>成立<rt>せいりつ</rt></ruby>まで",
+  lead:"交易的起点:市场调查 → 找交易对象 → 信用调查 → 交涉 → 报价与还价 → 承诺,合同成立。注意『承诺』一到达,合同即成立。",
+  terms:[
+   ["マーケティング","市场营销","marketing"],
+   ["<ruby>市場<rt>しじょう</rt></ruby><ruby>調査<rt>ちょうさ</rt></ruby>","市场调查","market research"],
+   ["<ruby>信用<rt>しんよう</rt></ruby><ruby>調査<rt>ちょうさ</rt></ruby>","信用调查","credit inquiry"],
+   ["<ruby>取引<rt>とりひき</rt></ruby><ruby>交渉<rt>こうしょう</rt></ruby>","交易磋商","negotiation"],
+   ["オファー","报价/发盘","offer"],
+   ["カウンターオファー","还盘","counter offer"],
+   ["<ruby>承諾<rt>しょうだく</rt></ruby>(アクセプト)","承诺","acceptance"],
+   ["<ruby>売買<rt>ばいばい</rt></ruby><ruby>契約<rt>けいやく</rt></ruby>","买卖合同","sales contract"]
+  ]},
+ {n:3, zh:"信用证基础知识", ja:"<ruby>信用状<rt>しんようじょう</rt></ruby>の<ruby>基礎<rt>きそ</rt></ruby><ruby>知識<rt>ちしき</rt></ruby>",
+  lead:"信用证由开证行对出口商作出独立付款保证,核心是『凭符合条件的单据付款』——银行只看单据、不管货物(单据交易/独立抽象性)。单据与L/C不符即『不符点(discrepancy)』。",
+  terms:[
+   ["<ruby>信用状<rt>しんようじょう</rt></ruby>","信用证","L/C"],
+   ["<ruby>発行<rt>はっこう</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>","开证行","issuing bank"],
+   ["<ruby>通知<rt>つうち</rt></ruby><ruby>銀行<rt>ぎんこう</rt></ruby>","通知行","advising bank"],
+   ["<ruby>確認<rt>かくにん</rt></ruby><ruby>信用状<rt>しんようじょう</rt></ruby>","保兑信用证","confirmed L/C"],
+   ["<ruby>取消<rt>とりけし</rt></ruby><ruby>不能<rt>ふのう</rt></ruby><ruby>信用状<rt>しんようじょう</rt></ruby>","不可撤销信用证","irrevocable L/C"],
+   ["<ruby>船積<rt>ふなづみ</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>","装船单据","shipping documents"],
+   ["ディスクレ","不符点","discrepancy"],
+   ["<ruby>独立<rt>どくりつ</rt></ruby><ruby>抽象性<rt>ちゅうしょうせい</rt></ruby>","独立抽象性","independence principle"]
+  ]},
+ {n:4, zh:"品质条件·数量条件等", ja:"<ruby>品質<rt>ひんしつ</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>・<ruby>数量<rt>すうりょう</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby><ruby>等<rt>とう</rt></ruby>",
+  lead:"合同要写清:品质怎么定(凭样品/标准品)、品质以何时为准(装运地/卸货地)、数量单位与溢短装容许、价格与交货条件,以及争议处理与不可抗力。",
+  terms:[
+   ["<ruby>品質<rt>ひんしつ</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>","品质条件","quality terms"],
+   ["<ruby>見本<rt>みほん</rt></ruby><ruby>売買<rt>ばいばい</rt></ruby>","凭样品买卖","sale by sample"],
+   ["<ruby>標準品<rt>ひょうじゅんひん</rt></ruby><ruby>売買<rt>ばいばい</rt></ruby>","凭标准品买卖","sale by standard"],
+   ["<ruby>船積<rt>ふなづみ</rt></ruby><ruby>品質<rt>ひんしつ</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>","装运地品质条件","shipped quality terms"],
+   ["<ruby>陸揚<rt>りくあげ</rt></ruby><ruby>品質<rt>ひんしつ</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>","卸货地品质条件","landed quality terms"],
+   ["<ruby>過不足<rt>かぶそく</rt></ruby><ruby>容認<rt>ようにん</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>","溢短装条款","more or less clause"],
+   ["<ruby>価格<rt>かかく</rt></ruby><ruby>条件<rt>じょうけん</rt></ruby>","价格条件","price terms"],
+   ["<ruby>不可抗力<rt>ふかこうりょく</rt></ruby>","不可抗力","force majeure"],
+   ["クレーム","索赔","claim"]
+  ]},
+ {n:5, zh:"Incoterms 基础知识", ja:"インコタームズの<ruby>基礎<rt>きそ</rt></ruby><ruby>知識<rt>ちしき</rt></ruby>",
+  lead:"Incoterms 规定买卖双方在『费用』与『风险』上的分界。记两个关键点:<b>危险转移点</b>和<b>费用负担到哪</b>。注意 FOB/CFR/CIF 仅限海运;CIF 风险在装船时转移但运费保险费付到目的港。👉 对照 <a class='inl' href='flow.html'>流程图解</a> 第6步。",
+  terms:[
+   ["インコタームズ2020","国际贸易术语","Incoterms 2020"],
+   ["EXW(<ruby>工場<rt>こうじょう</rt></ruby><ruby>渡<rt>わた</rt></ruby>し)","工厂交货","ex works"],
+   ["FOB(<ruby>本船<rt>ほんせん</rt></ruby><ruby>渡<rt>わた</rt></ruby>し)","船上交货","free on board"],
+   ["CFR(<ruby>運賃<rt>うんちん</rt></ruby><ruby>込<rt>こ</rt></ruby>み)","成本加运费","cost and freight"],
+   ["CIF(<ruby>運賃<rt>うんちん</rt></ruby><ruby>保険料<rt>ほけんりょう</rt></ruby><ruby>込<rt>こ</rt></ruby>み)","成本加保险费运费","cost, insurance and freight"],
+   ["FCA(<ruby>運送人<rt>うんそうにん</rt></ruby><ruby>渡<rt>わた</rt></ruby>し)","货交承运人","free carrier"],
+   ["CIP","运费保险费付至","carriage and insurance paid to"],
+   ["<ruby>危険<rt>きけん</rt></ruby><ruby>移転<rt>いてん</rt></ruby>","风险转移点","transfer of risk"],
+   ["<ruby>費用<rt>ひよう</rt></ruby><ruby>負担<rt>ふたん</rt></ruby>","费用负担","allocation of costs"]
+  ]},
+ {n:6, zh:"贸易运送", ja:"<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>運送<rt>うんそう</rt></ruby>",
+  lead:"运输方式与单据:海运(集装箱/在来船,定期/不定期)、航空、国际多式联运。核心单据 <b>B/L</b>(可转让的物权凭证)与 <b>AWB</b>(航空运单,非物权凭证)。配套记 FCL↔CY、LCL↔CFS。",
+  terms:[
+   ["<ruby>海上<rt>かいじょう</rt></ruby><ruby>輸送<rt>ゆそう</rt></ruby>","海上运输","ocean transport"],
+   ["コンテナ<ruby>船<rt>せん</rt></ruby>","集装箱船","container ship"],
+   ["<ruby>在来船<rt>ざいらいせん</rt></ruby>","杂货船","conventional vessel"],
+   ["FCL<ruby>貨物<rt>かもつ</rt></ruby>","整箱货","full container load"],
+   ["LCL<ruby>貨物<rt>かもつ</rt></ruby>","拼箱货","less than container load"],
+   ["<ruby>定期船<rt>ていきせん</rt></ruby>","班轮","liner"],
+   ["<ruby>不定期船<rt>ふていきせん</rt></ruby>","不定期船","tramper"],
+   ["<ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>","提单","bill of lading (B/L)"],
+   ["<ruby>航空<rt>こうくう</rt></ruby><ruby>運送状<rt>うんそうじょう</rt></ruby>","航空运单","air waybill (AWB)"],
+   ["<ruby>国際<rt>こくさい</rt></ruby><ruby>複合<rt>ふくごう</rt></ruby><ruby>輸送<rt>ゆそう</rt></ruby>","国际多式联运","multimodal transport"]
+  ]},
+ {n:7, zh:"货物海上保险", ja:"<ruby>貨物<rt>かもつ</rt></ruby><ruby>海上<rt>かいじょう</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>",
+  lead:"投保流程、保额(惯例 CIF×110%,含10%希望利润)与险别。现行 ICC 分 (A)(B)(C),(A) 最广、(C) 最窄;旧条款有 A/R 等。损害分:全损 / 分损 / 共同海损。",
+  terms:[
+   ["<ruby>貨物<rt>かもつ</rt></ruby><ruby>海上<rt>かいじょう</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>","货物海上保险","marine cargo insurance"],
+   ["<ruby>予定<rt>よてい</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>","预约保险","open/provisional policy"],
+   ["<ruby>確定<rt>かくてい</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>","确定保险","definite policy"],
+   ["<ruby>保険<rt>ほけん</rt></ruby><ruby>金額<rt>きんがく</rt></ruby>","保险金额","insured amount"],
+   ["ICC(A)(B)(C)","协会货物条款","Institute Cargo Clauses"],
+   ["<ruby>付加<rt>ふか</rt></ruby><ruby>危険<rt>きけん</rt></ruby>","附加险","additional risks"],
+   ["<ruby>保険料<rt>ほけんりょう</rt></ruby>","保险费","premium"],
+   ["<ruby>全損<rt>ぜんそん</rt></ruby>／<ruby>分損<rt>ぶんそん</rt></ruby>","全损/分损","total / partial loss"],
+   ["<ruby>共同<rt>きょうどう</rt></ruby><ruby>海損<rt>かいそん</rt></ruby>","共同海损","general average"]
+  ]},
+ {n:8, zh:"贸易交易相关的其他保险", ja:"<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>取引<rt>とりひき</rt></ruby>に<ruby>関<rt>かん</rt></ruby>するその<ruby>他<rt>た</rt></ruby>の<ruby>保険<rt>ほけん</rt></ruby>",
+  lead:"海上保险之外的两类保险:<b>贸易保险</b>(承保因政治/进口商破产等收不回款的风险,如输出手形保险)和 <b>PL保险</b>(产品责任,赔偿因产品缺陷致第三者的损害),再加整体风险管理。",
+  terms:[
+   ["<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>","贸易保险","trade insurance"],
+   ["<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>手形<rt>てがた</rt></ruby><ruby>保険<rt>ほけん</rt></ruby>","出口汇票保险","export bill insurance"],
+   ["PL<ruby>保険<rt>ほけん</rt></ruby>","产品责任险","product liability insurance"],
+   ["<ruby>国内<rt>こくない</rt></ruby>PL<ruby>保険<rt>ほけん</rt></ruby>","国内PL险","domestic PL insurance"],
+   ["<ruby>輸出<rt>ゆしゅつ</rt></ruby>PL<ruby>保険<rt>ほけん</rt></ruby>","出口PL险","export PL insurance"],
+   ["リスク<ruby>管理<rt>かんり</rt></ruby>","风险管理","risk management"]
+  ]},
+ {n:9, zh:"代金结算", ja:"<ruby>代金<rt>だいきん</rt></ruby><ruby>決済<rt>けっさい</rt></ruby>",
+  lead:"三大结算方式:<b>汇款</b>(前払/后払)、<b>跟单汇票</b>(L/C下买取;无L/C时走 D/P・D/A 托收)。手形分一览払(即期)与期限付(远期),并用为替予约规避汇率风险。",
+  terms:[
+   ["<ruby>外国<rt>がいこく</rt></ruby><ruby>為替<rt>かわせ</rt></ruby>","外汇","foreign exchange"],
+   ["<ruby>送金<rt>そうきん</rt></ruby>","汇款","remittance"],
+   ["<ruby>前払<rt>まえばら</rt></ruby>い／<ruby>後払<rt>あとばら</rt></ruby>い","预付/后付","advance / deferred payment"],
+   ["<ruby>荷為替<rt>にがわせ</rt></ruby><ruby>手形<rt>てがた</rt></ruby>","跟单汇票","documentary bill"],
+   ["<ruby>一覧払<rt>いちらんばら</rt></ruby>い","即期(见票即付)","at sight"],
+   ["<ruby>期限付<rt>きげんつき</rt></ruby><ruby>手形<rt>てがた</rt></ruby>","远期汇票","usance bill"],
+   ["D/P(<ruby>支払<rt>しはらい</rt></ruby><ruby>渡<rt>わた</rt></ruby>し)","付款交单","documents against payment"],
+   ["D/A(<ruby>引受<rt>ひきうけ</rt></ruby><ruby>渡<rt>わた</rt></ruby>し)","承兑交单","documents against acceptance"]
+  ]},
+ {n:10, zh:"从收到信用证到出口商收款", ja:"<ruby>信用状<rt>しんようじょう</rt></ruby>の<ruby>受領<rt>じゅりょう</rt></ruby>から<ruby>輸出者<rt>ゆしゅつしゃ</rt></ruby>の<ruby>代金<rt>だいきん</rt></ruby><ruby>回収<rt>かいしゅう</rt></ruby>まで",
+  lead:"出口方实务全流程:取得法令许可 → 出口通关 → 订舱投保 → 装船(拿B/L) → 备齐单据 → 开汇票买取收款。👉 这正是 <a class='inl' href='flow.html'>业务流程图解</a> 的第4–8步,务必对照着记。",
+  terms:[
+   ["<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>通関<rt>つうかん</rt></ruby>","出口通关","export customs clearance"],
+   ["<ruby>輸出<rt>ゆしゅつ</rt></ruby><ruby>許可<rt>きょか</rt></ruby>","出口许可","export permit (E/P)"],
+   ["<ruby>船積<rt>ふなづみ</rt></ruby><ruby>依頼<rt>いらい</rt></ruby>","委托装运","shipping instruction"],
+   ["<ruby>船積<rt>ふなづみ</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>","装船单据","shipping documents"],
+   ["<ruby>買取<rt>かいとり</rt></ruby>","买取/议付","negotiation"],
+   ["AEO<ruby>制度<rt>せいど</rt></ruby>","AEO(经认证经营者)","authorized economic operator"]
+  ]},
+ {n:11, zh:"进口手续与提货流程", ja:"<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>手続<rt>てつづき</rt></ruby>と<ruby>貨物<rt>かもつ</rt></ruby><ruby>引取<rt>ひきと</rt></ruby>りの<ruby>流<rt>なが</rt></ruby>れ",
+  lead:"进口方实务:进口通关、缴关税等 → 取得输入许可 → 凭B/L提货。资金面有进口金融(输入ユーザンス);B/L未到货先到时,用 <b>L/G(担保提货)</b> 先提货。👉 对照 <a class='inl' href='flow.html'>流程图解</a> 第10–12步。",
+  terms:[
+   ["<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>通関<rt>つうかん</rt></ruby>","进口通关","import customs clearance"],
+   ["<ruby>輸入<rt>ゆにゅう</rt></ruby><ruby>許可<rt>きょか</rt></ruby>","进口许可","import permit (I/P)"],
+   ["<ruby>関税<rt>かんぜい</rt></ruby>","关税","customs duty"],
+   ["<ruby>貨物<rt>かもつ</rt></ruby><ruby>引取<rt>ひきと</rt></ruby>り","提货","taking delivery"],
+   ["<ruby>輸入<rt>ゆにゅう</rt></ruby>ユーザンス","进口押汇/银行授信","import usance"],
+   ["L/G(<ruby>保証状<rt>ほしょうじょう</rt></ruby>)","担保提货书","letter of guarantee"]
+  ]},
+ {n:12, zh:"外汇汇率与汇率风险规避", ja:"<ruby>外国<rt>がいこく</rt></ruby><ruby>為替<rt>かわせ</rt></ruby><ruby>相場<rt>そうば</rt></ruby>と<ruby>為替<rt>かわせ</rt></ruby><ruby>変動<rt>へんどう</rt></ruby>リスクの<ruby>回避<rt>かいひ</rt></ruby>",
+  lead:"汇率类型与对客相场:以 <b>仲值TTM</b> 为基准,<b>TTS</b>=银行卖外汇(客户买)、<b>TTB</b>=银行买外汇(客户卖)。用直物/先物与<b>为替予约</b>锁定汇率、规避波动。",
+  terms:[
+   ["<ruby>外国<rt>がいこく</rt></ruby><ruby>為替<rt>かわせ</rt></ruby><ruby>相場<rt>そうば</rt></ruby>","外汇汇率","exchange rate"],
+   ["<ruby>直物<rt>じきもの</rt></ruby><ruby>相場<rt>そうば</rt></ruby>","即期汇率","spot rate"],
+   ["<ruby>先物<rt>さきもの</rt></ruby><ruby>相場<rt>そうば</rt></ruby>","远期汇率","forward rate"],
+   ["<ruby>仲値<rt>なかね</rt></ruby>(TTM)","中间价(基准)","mid rate"],
+   ["TTS(<ruby>電信<rt>でんしん</rt></ruby><ruby>売<rt>うり</rt></ruby><ruby>相場<rt>そうば</rt></ruby>)","电汇卖出价","TT selling"],
+   ["TTB(<ruby>電信<rt>でんしん</rt></ruby><ruby>買<rt>かい</rt></ruby><ruby>相場<rt>そうば</rt></ruby>)","电汇买入价","TT buying"],
+   ["<ruby>為替<rt>かわせ</rt></ruby><ruby>予約<rt>よやく</rt></ruby>","远期外汇预约","forward exchange contract"]
+  ]},
+ {n:13, zh:"国际贸易体制基础知识", ja:"<ruby>国際<rt>こくさい</rt></ruby><ruby>貿易<rt>ぼうえき</rt></ruby><ruby>体制<rt>たいせい</rt></ruby>の<ruby>基礎<rt>きそ</rt></ruby><ruby>知識<rt>ちしき</rt></ruby>",
+  lead:"宏观体制:全球化与区域一体化(EU/USMCA 等)、GATT→WTO(最惠国待遇、国民待遇)、特惠关税与保障措施;还有贸易与环境三大条约。",
+  terms:[
+   ["グローバル<ruby>化<rt>か</rt></ruby>","全球化","globalization"],
+   ["<ruby>地域<rt>ちいき</rt></ruby><ruby>統合<rt>とうごう</rt></ruby>","区域一体化","regional integration"],
+   ["GATT／WTO","关贸总协定/世贸组织","GATT / WTO"],
+   ["<ruby>最恵国<rt>さいけいこく</rt></ruby><ruby>待遇<rt>たいぐう</rt></ruby>","最惠国待遇","most-favored-nation"],
+   ["<ruby>内国民<rt>ないこくみん</rt></ruby><ruby>待遇<rt>たいぐう</rt></ruby>","国民待遇","national treatment"],
+   ["<ruby>特恵<rt>とっけい</rt></ruby><ruby>関税<rt>かんぜい</rt></ruby>","特惠关税","preferential tariff (GSP)"],
+   ["セーフガード","保障措施","safeguard"],
+   ["ワシントン／モントリオール／バーゼル","环境三条约","CITES / Montreal / Basel"]
+  ]},
+ {n:14, zh:"贸易单据基础知识", ja:"<ruby>貿易<rt>ぼうえき</rt></ruby><ruby>書類<rt>しょるい</rt></ruby>の<ruby>基礎<rt>きそ</rt></ruby><ruby>知識<rt>ちしき</rt></ruby>",
+  lead:"把各类单据集中记:谁出具、起什么作用。合同书、商业发票、装箱单、信用证、B/L、AWB、保险单、原产地证明、汇票。👉 也可在 <a class='inl' href='flow.html'>流程图解</a> 里看每份单据出现在哪一步。",
+  terms:[
+   ["<ruby>売買<rt>ばいばい</rt></ruby><ruby>契約書<rt>けいやくしょ</rt></ruby>","买卖合同","contract"],
+   ["インボイス","商业发票","commercial invoice"],
+   ["パッキングリスト","装箱单","packing list"],
+   ["<ruby>船荷<rt>ふなに</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>","提单","bill of lading (B/L)"],
+   ["<ruby>航空<rt>こうくう</rt></ruby><ruby>運送状<rt>うんそうじょう</rt></ruby>","航空运单","air waybill (AWB)"],
+   ["<ruby>保険<rt>ほけん</rt></ruby><ruby>証券<rt>しょうけん</rt></ruby>","保险单","insurance policy"],
+   ["<ruby>原産地<rt>げんさんち</rt></ruby><ruby>証明書<rt>しょうめいしょ</rt></ruby>","原产地证明","certificate of origin"],
+   ["<ruby>為替<rt>かわせ</rt></ruby><ruby>手形<rt>てがた</rt></ruby>","汇票","bill of exchange / draft"]
+  ]}
+];
+function render(){
+  document.getElementById('chapters').innerHTML=CH.map((c,i)=>{
+    const terms=c.terms.map(t=>'<div class="term"><span class="ja">'+t[0]+'</span> · <span class="zh">'+t[1]+'</span> · <span class="en">'+t[2]+'</span></div>').join('');
+    return '<div class="ch" id="ch'+i+'"><div class="ch-h" onclick="tog('+i+')">'+
+      '<div class="num">第'+c.n+'章</div><div class="ch-t"><div class="zh">'+c.zh+'</div><div class="ja">'+c.ja+'</div></div><div class="caret">▶</div></div>'+
+      '<div class="body"><div class="lead">'+c.lead+'</div><div class="lbl">核心术语</div>'+terms+'</div></div>';
+  }).join('');
+}
+function tog(i){document.getElementById('ch'+i).classList.toggle('open');}
+function setAll(o){document.querySelectorAll('.ch').forEach(e=>e.classList.toggle('open',o));}
+let furi=true;try{furi=localStorage.getItem('bjt_set')?JSON.parse(localStorage.getItem('bjt_set')).furi!==false:true;}catch(e){}
+function applyFuri(){document.body.classList.toggle('hide-furi',!furi);document.getElementById('furiSwitch').classList.toggle('on',furi);}
+function toggleFuri(){furi=!furi;try{localStorage.setItem('bjt_set',JSON.stringify({furi:furi}));}catch(e){}applyFuri();}
+render();applyFuri();
+</script>
+</body>
+</html>
